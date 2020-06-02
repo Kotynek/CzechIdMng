@@ -4,7 +4,7 @@
 
 	<groupId>eu.bcvsolutions.idm</groupId>
 	<artifactId>idm-aggregator</artifactId>
-	<version>9.7.17</version>
+	<version>9.7.18-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>CzechIdM aggregator</name>
