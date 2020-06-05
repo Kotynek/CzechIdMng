@@ -814,10 +814,10 @@ public class DefaultIdmIdentityContractServiceIntegrationTest extends AbstractIn
 		IdmTreeNodeDto node3 = getHelper().createTreeNode();
 		IdmTreeNodeDto node4 = getHelper().createTreeNode();
 
-		IdmIdentityContractDto contract = getHelper().createIdentityContact(identity,node, org.joda.time.LocalDate.now(),org.joda.time.LocalDate.parse("2021-06-05"));
-		IdmIdentityContractDto contract2 = getHelper().createIdentityContact(identity2,node2,org.joda.time.LocalDate.now(),org.joda.time.LocalDate.parse("2020-05-05"));
-		IdmIdentityContractDto contract3 = getHelper().createIdentityContact(identity3,node3,org.joda.time.LocalDate.now(),org.joda.time.LocalDate.parse("2016-05-05"));
-		IdmIdentityContractDto contract4 = getHelper().createIdentityContact(identity4,node4,org.joda.time.LocalDate.parse("2018-05-05"),org.joda.time.LocalDate.parse("2025-05-05"));
+		IdmIdentityContractDto contract = getHelper().createIdentityContact(identity,node, LocalDate.now(), LocalDate.now().plusDays(2));
+		IdmIdentityContractDto contract2 = getHelper().createIdentityContact(identity2,node2, LocalDate.now(), LocalDate.now().plusDays(2));
+		IdmIdentityContractDto contract3 = getHelper().createIdentityContact(identity3,node3, LocalDate.now().minusDays(10), LocalDate.now().minusDays(2));
+		IdmIdentityContractDto contract4 = getHelper().createIdentityContact(identity4,node4, LocalDate.now().minusDays(2), LocalDate.now().plusDays(2));
 
 		IdmIdentityContractFilter filter = new IdmIdentityContractFilter();
 		filter.setValidFrom(contract.getValidFrom());
