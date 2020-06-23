@@ -672,6 +672,36 @@
          "name": "Status of all active synchronizations"
          }
        }
+     },
+     "passwordFilter": {
+       "header": "Password filter definition",
+       "title": "Password filter definition",
+       "create": {
+         "header": "New password filter definition"
+       },
+       "edit": {
+         "header": "Edit password filter definition"
+       },
+       "basic": "Basic information",
+       "system": "Connected system",
+       "filter": {
+         "text": "Name of password filter"
+       },
+       "save": {
+         "success": "Password filter definition was successfully saved."
+       }
+     },
+     "passwordFilterSystem": {
+       "detail": "Connected system",
+       "save": {
+         "success": "Connected system was successfully saved."
+       },
+       "create": {
+         "header": "New connected system"
+       },
+       "edit": {
+         "header": "Edit system connection"
+       }
      }
   },
   "entity": {
@@ -1170,6 +1200,33 @@
       "value": "Value",
       "created": "Created",
       "creator": "Creator"
+    },
+    "PasswordFilter": {
+      "code": "Code",
+      "timeout": {
+        "label": "Timeout (seconds)",
+        "helpBlock": "Time window in which two identical passwords will be marked as echo."
+      },
+      "changeInIdm": {
+        "label": "Change password through IdM",
+        "helpBlock": "Password change for the password filter definition will be also made through IdM."
+      },
+      "description": "Description",
+      "disabled": {
+        "label": "Disabled",
+        "helpBlock": "For disabled password filter definition will not be processed password policies. For disabled password filter will be return always valid."
+      },
+      "transformationScript": {
+        "label": "Transformation script for identifier from system",
+        "helpBlock": "Script find identity in IdM by given identifier from system. Returned must be IdmIdentityDto. To script is given these parameters: 'system' the system from which the password change request came, 'username' identifier given from system, 'logIdentifier' log identifier that connects request from pasword filter with IdM and 'passwordFilter' the corresponding password filter definition in IdM."
+      },
+      "transformationScriptSelectBox": {
+        "label": "Select script for transformation"
+      }
+    },
+    "PasswordFilterSystem": {
+      "system": "System",
+      "passwordFilter": "Password filter"
     }
   },
   "enums" : {
@@ -2625,6 +2682,9 @@
     },
     "provisioning-cache": {
       "description": "Stores executed provisioning operations. This drastically speeds up provisioning brake. Evicting this cach may temporarilly slow down provisioning execution for systems, which have provisioning brake enabled."
+    },
+    "password-filter-echo-cache": {
+      "description": "Cache stores records about processed password changes with password filter (ECHO's). The cache prevents made duplicit password request through IdM and systems."
     }
   }
 }

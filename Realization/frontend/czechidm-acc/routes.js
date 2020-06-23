@@ -332,6 +332,33 @@ module.exports = {
       path: 'provisioning',
       component: require('./src/content/provisioning/AuditProvisioningOperations'),
       access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['PROVISIONINGOPERATION_READ', 'PROVISIONINGARCHIVE_READ'] } ],
+    },
+    {
+      path: 'password-filter/:entityId/new',
+      component: require('./src/content/passwordfilter/PasswordFilterContent'),
+      access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['ROLE_CREATE'] } ],
+    },
+    {
+      path: 'password-filter',
+      component: require('./src/content/passwordfilter/PasswordFilters'),
+      access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['PASSWORDFILTER_READ'] } ]
+    },
+    {
+      path: 'password-filter/:entityId/',
+      component: require('./src/content/passwordfilter/PasswordFilter'),
+      access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['PASSWORDFILTER_READ'] } ],
+      childRoutes: [
+        {
+          path: 'detail',
+          component: require('./src/content/passwordfilter/PasswordFilterContent'),
+          access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['PASSWORDFILTER_READ'] } ]
+        },
+        {
+          path: 'systems',
+          component: require('./src/content/passwordfilter/PasswordFilterSystems'),
+          access: [ { type: 'HAS_ANY_AUTHORITY', authorities: ['PASSWORDFILTER_READ'] } ]
+        }
+      ]
     }
   ]
 };

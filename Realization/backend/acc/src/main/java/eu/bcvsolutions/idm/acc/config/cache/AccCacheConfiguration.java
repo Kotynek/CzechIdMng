@@ -5,8 +5,10 @@ import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import eu.bcvsolutions.idm.acc.dto.AccPasswordFilterEchoItemDto;
 import eu.bcvsolutions.idm.acc.dto.AttributeValueWrapperDto;
 import eu.bcvsolutions.idm.acc.dto.SysProvisioningBreakItems;
+import eu.bcvsolutions.idm.acc.service.api.PasswordFilterManager;
 import eu.bcvsolutions.idm.acc.service.api.SynchronizationEntityExecutor;
 import eu.bcvsolutions.idm.acc.service.api.SynchronizationService;
 import eu.bcvsolutions.idm.acc.service.impl.AbstractSynchronizationExecutor;
@@ -67,4 +69,17 @@ public class AccCacheConfiguration {
 				.build();
 	}
 
+	/**
+	 * Define distributed cache for {@link AccPasswordFilterEchoItemDto}. The cache stores echos for password filters.
+	 *
+	 * @return {@link IdMCacheConfiguration} for {@link AccPasswordFilterEchoItemDto}
+	 */
+	@Bean
+	public IdMCacheConfiguration passwordFilterEchoCacheConfig() {
+		return DistributedIdMCacheConfiguration.<UUID, AccPasswordFilterEchoItemDto> builder()
+				.withName(PasswordFilterManager.ECHO_CACHE_NAME)
+				.withKeyType(UUID.class)
+				.withValueType(AccPasswordFilterEchoItemDto.class)
+				.build();
+	}
 }

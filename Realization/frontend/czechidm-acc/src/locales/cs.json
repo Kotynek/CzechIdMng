@@ -673,6 +673,36 @@
           "name": "Stav všech aktivních synchronizací"
           }
         }
+      },
+      "passwordFilter": {
+        "header": "Definice password filtrů",
+        "title": "Definice password filtrů",
+        "create": {
+          "header": "Nová definice password filtru"
+        },
+        "edit": {
+          "header": "Editace definice password filtru"
+        },
+        "basic": "Základní informace",
+        "system": "Navázané systémy",
+        "filter": {
+          "text": "Název password filtru"
+        },
+        "save": {
+          "success": "Definice password filtru byla úspěšně uložena"
+        }
+      },
+      "passwordFilterSystem": {
+        "detail": "Navázané systémy",
+        "save": {
+          "success": "Navázaný systém byl úspěšně uložen."
+        },
+        "create": {
+          "header": "Nová vazba na systém"
+        },
+        "edit": {
+          "header": "Editace vazby na systém"
+        }
       }
   },
   "entity": {
@@ -1171,6 +1201,33 @@
       "value": "Hodnota",
       "created": "Vytvořeno",
       "creator": "Vytvořil"
+    },
+    "PasswordFilter": {
+      "code": "Kód",
+      "timeout": {
+        "label": "Timeout (vteřiny)",
+        "helpBlock": "Časové okno ve kterém dvě stejné hesla budou označeny jako echo."
+      },
+      "changeInIdm": {
+        "label": "Změnit heslo v IdM",
+        "helpBlock": "Změna hesla pro tuto definici bude provedena i v IdM."
+      },
+      "description": "Popis",
+      "disabled": {
+        "label": "Neaktivní",
+        "helpBlock": "Pro neaktivní filtr nebudou měněna hesla ani vyhodnocovány politiky hesel. Pro vyhodnocení se bude vract vždy validní."
+      },
+      "transformationScript": {
+        "label": "Transformační skript identifikátoru ze systému",
+        "helpBlock": "Skript dohledá dle intifikátoru zaslaného z password filtru odpovídající identitu v IdM. Výstup skriptu musí být IdmIdentityDto. Skriptu jsou předány následující parametry: 'system' systém ze kterého přišel požadavek na změnu hesla, 'username' identifikátor zaslaný z koncového systému, 'logIdentifier' identifikátor pomocí kterého jsou spojeny požadavky ze systému do IdM a 'passwordFilter' odpovídající definice password filtru v IdM."
+      },
+      "transformationScriptSelectBox": {
+        "label": "Výběr skriptu pro transformaci"
+      }
+    },
+    "PasswordFilterSystem": {
+      "system": "Systém",
+      "passwordFilter": "Password filtr"
     }
   },
   "enums" : {
@@ -2627,6 +2684,9 @@
     },
     "provisioning-cache": {
       "description": "Cache slouží pro ukládání provedených operací provisioningu. Toto značně urychluje vyhodnocování brzdy provisioningu, která se na základě obsahu této cache rozhodouje, zda operaci zablokuje, či nikoliv. Po vyprázdnění cache může dočasně dojít ke zpomalení provisioningu u těch systémů, které mají aktivovanou brzdu provisioningu."
+    },
+    "password-filter-echo-cache": {
+      "description": "Cache slouží k uložení záznamů o provedených změn hesel pomocí password filteru (ECH). Pomocí této cache nejsou prováděny duplicitní požadavky na změnu hesla proti IdM a koncovým systémům."
     }
   }
 }

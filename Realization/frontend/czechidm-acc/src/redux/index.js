@@ -22,6 +22,8 @@ import ProvisioningBreakRecipientManager from './ProvisioningBreakRecipientManag
 import ContractAccountManager from './ContractAccountManager';
 import ContractSliceAccountManager from './ContractSliceAccountManager';
 import AttributeControlledValueManager from './AttributeControlledValueManager';
+import PasswordFilterManager from './PasswordFilterManager';
+import PasswordFilterSystemManager from './PasswordFilterSystemManager';
 
 const ManagerRoot = {
   SystemManager,
@@ -47,7 +49,9 @@ const ManagerRoot = {
   ProvisioningBreakRecipientManager,
   ContractAccountManager,
   ContractSliceAccountManager,
-  AttributeControlledValueManager
+  AttributeControlledValueManager,
+  PasswordFilterManager,
+  PasswordFilterSystemManager
 };
 
 ManagerRoot.version = '0.0.1';

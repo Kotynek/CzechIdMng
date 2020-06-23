@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -36,10 +37,14 @@ import eu.bcvsolutions.idm.acc.dto.SysSystemAttributeMappingDto;
 import eu.bcvsolutions.idm.acc.dto.SysSystemDto;
 import eu.bcvsolutions.idm.acc.dto.SysSystemEntityDto;
 import eu.bcvsolutions.idm.acc.dto.SysSystemMappingDto;
+import eu.bcvsolutions.idm.acc.dto.filter.AccAccountFilter;
 import eu.bcvsolutions.idm.acc.dto.filter.SysSchemaAttributeFilter;
 import eu.bcvsolutions.idm.acc.entity.SysSchemaAttribute;
 import eu.bcvsolutions.idm.acc.entity.SysSystemAttributeMapping_;
 import eu.bcvsolutions.idm.acc.exception.ProvisioningException;
+import eu.bcvsolutions.idm.acc.service.api.AccAccountService;
+import eu.bcvsolutions.idm.acc.service.api.AccPasswordFilterSystemService;
+import eu.bcvsolutions.idm.acc.service.api.PasswordFilterManager;
 import eu.bcvsolutions.idm.acc.service.api.ProvisioningService;
 import eu.bcvsolutions.idm.acc.service.api.SysProvisioningArchiveService;
 import eu.bcvsolutions.idm.acc.service.api.SysProvisioningAttributeService;
@@ -104,6 +109,9 @@ public class PrepareConnectorObjectProcessor extends AbstractEntityEventProcesso
 	@Autowired private IdmPasswordPolicyService passwordPolicyService;
 	@Autowired private ConfidentialStorage confidentialStorage;
 	@Autowired private SysProvisioningAttributeService provisioningAttributeService;
+	@Autowired private PasswordFilterManager passwordFilterManager;
+	@Autowired private AccPasswordFilterSystemService passwordFilterSystemService;
+	@Autowired private AccAccountService accountService;
 	
 	@Autowired
 	public PrepareConnectorObjectProcessor(
@@ -232,9 +240,21 @@ public class PrepareConnectorObjectProcessor extends AbstractEntityEventProcesso
 			List<SysSystemAttributeMappingDto> passwordAttributes = attributeMappingService
 					.getAllPasswordAttributes(system.getId(), mapping.getId());
 			final GuardedString generatedPassword;
-			// if exists at least one password attribute generate password
+			// If exists at least one password attribute generate password and try set echos for current system
 			if (!passwordAttributes.isEmpty()) {
 				generatedPassword = generatePassword(system);
+
+				UUID systemId = system.getId();
+				// Check if system is managed
+				if (passwordFilterSystemService.isSystemManaged(systemId)) {
+					AccAccountFilter filter = new AccAccountFilter();
+					filter.setUid(provisioningOperation.getSystemEntityUid());
+					filter.setSystemId(systemId);
+					Page<UUID> accountIds = accountService.findIds(filter, null);
+					for (UUID accountId : accountIds) {
+						passwordFilterManager.setEcho(accountId, generatedPassword);
+					}
+				}
 			} else {
 				generatedPassword = null;
 			}

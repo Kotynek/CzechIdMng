@@ -48,7 +48,17 @@ public enum AccGroupPermission implements GroupPermission {
 	PROVISIONINGARCHIVE(
 			IdmBasePermission.ADMIN,
 			IdmBasePermission.COUNT,
-			IdmBasePermission.READ);
+			IdmBasePermission.READ),
+	PASSWORDFILTER(
+			IdmBasePermission.ADMIN,
+			IdmBasePermission.COUNT,
+			IdmBasePermission.AUTOCOMPLETE,
+			IdmBasePermission.READ,
+			IdmBasePermission.CREATE,
+			IdmBasePermission.UPDATE,
+			IdmBasePermission.DELETE,
+			PasswordFilterBasePermission.CHANGEPASSWORD,
+			PasswordFilterBasePermission.VALIDATEPASSWORD);
 	
 	// String constants could be used in pre / post authotize SpEl expressions
 	
@@ -120,7 +130,17 @@ public enum AccGroupPermission implements GroupPermission {
 	public static final String PROVISIONING_ARCHIVE_COUNT = "PROVISIONINGARCHIVE" + BasePermission.SEPARATOR + "COUNT";
 	public static final String PROVISIONING_ARCHIVE_READ = "PROVISIONINGARCHIVE" + BasePermission.SEPARATOR + "READ";
 	public static final String PROVISIONING_ARCHIVE_DELETE = "PROVISIONINGARCHIVE" + BasePermission.SEPARATOR + "DELETE";
-	
+	//
+	public static final String PASSWORD_FILTER_ADMIN = "PASSWORDFILTER" + BasePermission.SEPARATOR + "ADMIN";
+	public static final String PASSWORD_FILTER_COUNT = "PASSWORDFILTER" + BasePermission.SEPARATOR + "COUNT";
+	public static final String PASSWORD_FILTER_AUTOCOMPLETE = "PASSWORDFILTER" + BasePermission.SEPARATOR + "AUTOCOMPLETE";
+	public static final String PASSWORD_FILTER_READ = "PASSWORDFILTER" + BasePermission.SEPARATOR + "READ";
+	public static final String PASSWORD_FILTER_CREATE = "PASSWORDFILTER" + BasePermission.SEPARATOR + "CREATE";
+	public static final String PASSWORD_FILTER_UPDATE = "PASSWORDFILTER" + BasePermission.SEPARATOR + "UPDATE";
+	public static final String PASSWORD_FILTER_DELETE = "PASSWORDFILTER" + BasePermission.SEPARATOR + "DELETE";
+	public static final String PASSWORD_FILTER_CHANGEPASSWORD = "PASSWORDFILTER" + BasePermission.SEPARATOR + "CHANGEPASSWORD";
+	public static final String PASSWORD_FILTER_VALIDATEPASSWORD = "PASSWORDFILTER" + BasePermission.SEPARATOR + "VALIDATEPASSWORD";
+
 	private final List<BasePermission> permissions;
 
 	private AccGroupPermission(BasePermission... permissions) {
