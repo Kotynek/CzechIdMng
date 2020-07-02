@@ -6,6 +6,7 @@ import Joi from 'joi';
 import _ from 'lodash';
 import Waypoint from 'react-waypoint';
 //
+import * as Utils from '../../../utils';
 import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import OptionDecorator from './OptionDecorator';
@@ -504,7 +505,7 @@ class SelectBox extends AbstractFormComponent {
     if (inputLower) {
       if (_niceLabel !== null && !_niceLabel.toLowerCase().indexOf(inputLower) >= 0) {
         for (const field of this.props.searchInFields) {
-          if (item[field] !== null && item[field].toLowerCase().indexOf(inputLower) >= 0) {
+          if (!Utils.Ui.isEmpty(item[field]) && item[field].toLowerCase().indexOf(inputLower) >= 0) {
             itemFullKey = `${ itemFullKey } (${ item[field] })`;
             continue;
           }

@@ -719,7 +719,8 @@ class ScheduleTasks extends Advanced.AbstractTableContent {
                   required={ triggerType === 'DEPENDENT' }
                   optionComponent={ connect(() => { return { supportedTasks }; })(SchedulerTaskOptionDecorator) }
                   valueComponent={ connect(() => { return { supportedTasks }; })(SchedulerTaskValueDecorator) }
-                  clearable={ false }/>
+                  clearable={ false }
+                  searchInFields={ ['text', 'description'] }/>
               </Basic.AbstractForm>
             </Basic.Modal.Body>
 
